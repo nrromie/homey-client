@@ -16,6 +16,7 @@ const Navbar = () => {
   const [userDrop, setUserDrop] = useState(false)
   const [isDark, setIsDark] = useState()
 
+
   const dropdownStyles = `absolute z-10 right-0 bg-black ${dropDown ? 'top-24' : 'top-[-400px]'}`;
 
   useEffect(() => {
@@ -64,9 +65,9 @@ const Navbar = () => {
       {dashboarddrop && (
         <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
           <div className="py-1" role="none">
-            <Link to={"myservices"} className="text-gray-700 block px-4 py-2 text-sm">My Services</Link>
-            <Link to={'addservice'} className="text-gray-700 block px-4 py-2 text-sm">Add a services</Link>
-            <Link className="text-gray-700 block px-4 py-2 text-sm">My schedules</Link>
+            <Link onClick={() => setDropDown(false)} to={"myservices"} className="text-gray-700 block px-4 py-2 text-sm">My Services</Link>
+            <Link onClick={() => setDropDown(false)} to={'addservice'} className="text-gray-700 block px-4 py-2 text-sm">Add a services</Link>
+            <Link onClick={() => setDropDown(false)} to={'/schedules'} className="text-gray-700 block px-4 py-2 text-sm">My schedules</Link>
           </div>
         </div>
       )}
@@ -77,8 +78,9 @@ const Navbar = () => {
   const links = <>
     <li className="flex"><NavLink to={'/'} className={handleNavLinks}>Home</NavLink></li>
     <li className="flex"><NavLink to={'/services'} className={handleNavLinks}>Services</NavLink></li>
-    <li className="flex"><button>{dropdownbtn}</button></li>
+    <li className="flex"><div className='flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-300'>{dropdownbtn}</div></li>
   </>
+
 
   const userDropdown = (
     <div className="relative inline-block text-left">
@@ -92,6 +94,15 @@ const Navbar = () => {
       {userDrop && (
         <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
           <div className="py-1" role="none">
+            <div className="flex items-center px-4 py-2">
+              {userData?.photoURL && (
+                <img alt="User" className="w-8 h-8 rounded-full mr-2" src={userData.photoURL} />
+              )}
+              <div>
+                <p className="text-gray-800 font-semibold">{userData?.displayName}</p>
+                <p className="text-gray-500">{userData?.email}</p>
+              </div>
+            </div>
             <button onClick={handleSignOut} className="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">
               Sign out
             </button>
@@ -105,12 +116,12 @@ const Navbar = () => {
   return (
     <div className="relative p-4 dark:bg-gray-800 dark:text-gray-100">
       <div className="container flex justify-between h-16 mx-auto">
-        <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" className="flex items-center p-2">Homey</a>
+        <Link to={'/'} className="flex items-center p-2">Homey</Link>
         <ul className="items-stretch hidden space-x-3 lg:flex">
           {links}
         </ul>
         <div className="items-center flex-shrink-0 hidden lg:flex">
-          <button onClick={handleTheme}>
+          <button className='mr-4 text-2xl' onClick={handleTheme}>
             {
               isDark ? <CiLight /> : <CiDark />
             }

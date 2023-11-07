@@ -29,10 +29,10 @@ const Login = () => {
         const email = result.user.email;
         const displayName = result.user.displayName;
         const photoURL = result.user.photoURL;
-        const newUser = { email, photoURL, displayName, servicesProvided: [], bookedServices: [] }
+        const newUser = { email, photoURL, displayName, bookedServices: [] }
 
         //send data
-        fetch('http://localhost:5000/adduser', {
+        fetch('https://homey-server.vercel.app/adduser', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

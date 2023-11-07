@@ -1,45 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 
 const ServiceDetails = () => {
     const [loading, setLoading] = useState(true);
-    const [service, setService] = useState({});
+    const [serviceData, setServiceData] = useState({ service: {}, provider: {} });
     const { _id } = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${_id}`)
+        fetch(`https://homey-server.vercel.app/services/${_id}`)
             .then(res => res.json())
             .then(data => {
-                setService(data);
+                setServiceData(data);
                 setLoading(false);
             })
             .catch(error => console.error(error));
     }, [_id]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
+    const { service, provider } = serviceData;
     const { email, photo, serviceName, serviceArea, price, description } = service;
-
-    const handleBookNow = () => {
-
-        newBooking = 
-
-        fetch('http://localhost:5000/addservice', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newBooking)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId) {
-                    console.log('Inserted Seccessfully')
-                }
-            })
-    }
+    const { displayName, photoURL } = provider;
 
     return (
         <div className="container mx-auto p-8">
@@ -47,15 +31,19 @@ const ServiceDetails = () => {
                 <div>
                     <img src={photo} alt={serviceName} className="w-full h-auto rounded-lg mb-4" />
                 </div>
-                <div>
-                    <h2 className="text-2xl font-bold mb-4">{serviceName}</h2>
-                    <p className="text-gray-600 mb-4">{description}</p>
+                <div className="flex flex-col justify-center">
+                    <h2 className="text-3xl font-bold mb-4">{serviceName}</h2>
+                    <p className="text-gray-600 mb-6">{description}</p>
+                    <div className="flex items-center mb-4">
+                        <img src={photoURL} alt={displayName} className="w-10 h-10 rounded-full mr-4" />
+                        <h3 className="text-gray-800 text-lg font-semibold">{displayName}</h3>
+                    </div>
                     <p className="text-gray-800 font-semibold mb-4">Service Provider: {email}</p>
                     <p className="text-gray-800 font-semibold mb-4">Service Area: {serviceArea}</p>
-                    <p className="text-violet-600 font-semibold text-xl mb-4">{price}</p>
-                    <button className="bg-violet-600 text-white px-6 py-2 rounded hover:bg-violet-700">
+                    <p className="text-violet-600 font-semibold text-2xl mb-4">{price}</p>
+                    <Link to={`/booking/${_id}`} className="bg-violet-600 text-white px-8 py-3 rounded hover:bg-violet-700 transition duration-300">
                         Book Now
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

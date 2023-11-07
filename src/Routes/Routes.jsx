@@ -7,6 +7,10 @@ import AddService from "../pages/AddService/AddService";
 import Services from "../pages/Services/Services";
 import MyServices from "../pages/MyServices/MyServices";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
+import Booking from "../pages/Booking/Booking";
+import MySchedules from "../pages/MySchedules/MySchedules";
+import Home from "../pages/Home/Home";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -16,11 +20,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <div>comming soon</div>,
+                element: <Home />,
             },
             {
                 path: "/addservice",
-                element: <AddService />
+                element: <PrivateRoutes><AddService /></PrivateRoutes>
             },
             {
                 path: "/services",
@@ -28,11 +32,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "/myservices",
-                element: <MyServices />
+                element: <PrivateRoutes><MyServices /></PrivateRoutes>
             },
             {
                 path: "services/details/:_id",
                 element: <ServiceDetails />
+            },
+            {
+                path: "/booking/:_id",
+                element: <Booking />
+            },
+            {
+                path: "/schedules",
+                element: <PrivateRoutes><MySchedules /></PrivateRoutes>
             },
             {
                 path: "/signup",

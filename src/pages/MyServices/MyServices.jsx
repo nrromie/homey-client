@@ -8,7 +8,7 @@ const MyServices = () => {
     const email = userData?.email;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/myservices/${email}`)
+        fetch(`https://homey-server.vercel.app/myservices/${email}`)
             .then(res => res.json())
             .then(data => setServices(data))
             .catch(error => console.error(error))

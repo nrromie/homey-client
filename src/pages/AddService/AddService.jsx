@@ -19,7 +19,7 @@ const AddService = () => {
         const newService = { email, photo, serviceName, serviceArea, price, description };
 
         //send data
-        fetch('http://localhost:5000/addservice', {
+        fetch('https://homey-server.vercel.app/addservice', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { FacebookAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 
 
@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (!loading && user) {
             const email = user.email;
-            fetch(`http://localhost:5000/users/${email}`)
+            fetch(`https://homey-server.vercel.app/users/${email}`)
                 .then(res => res.json())
                 .then(data => setUserData(data))
                 .catch(error => console.error(error));

@@ -26,7 +26,7 @@ const Signup = () => {
     const newUser = { email, photoURL, displayName, bookedServices: [] }
 
     //send data
-    fetch('http://localhost:5000/adduser', {
+    fetch('https://homey-server.vercel.app/adduser', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
