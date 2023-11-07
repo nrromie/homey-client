@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import ServicesCard from "./ServicesCard/ServicesCard";
 import Loading from "../../components/Loading/Loading";
 import { FaSearch } from 'react-icons/fa'
+import ServiceCard from "../../components/ServiceCard/ServiceCard";
+import axios from "axios";
 
 const Services = () => {
     const [services, setServices] = useState([]);
@@ -9,20 +10,19 @@ const Services = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        const fetchData = () => {
+        const fetchData = async () => {
+          try {
             const apiUrl = searchQuery ? `https://homey-server.vercel.app/services?query=${searchQuery}` : 'https://homey-server.vercel.app/services';
-            fetch(apiUrl)
-                .then(res => res.json())
-                .then(data => {
-                    setServices(data);
-                    setLoading(false);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            const response = await axios.get(apiUrl);
+            setServices(response.data);
+            setLoading(false);
+          } catch (error) {
+            console.error(error);
+          }
         };
+    
         fetchData();
-    }, [searchQuery]);
+      }, [searchQuery]);
 
     if (loading) {
         return <Loading></Loading>
@@ -30,7 +30,7 @@ const Services = () => {
 
     return (
         <div>
-            <div className="relative flex justify-center items-center my-4">
+            <div className="relative flex justify-center items-center w-11/12 mx-auto my-4">
                 <div className="flex relative w-48 sm:w-auto">
                     <input
                         className="w-full py-2 pl-10 pr-4 text-sm rounded-md focus:outline-none dark:bg-gray-800 dark:text-gray-100 focus:dark:bg-gray-900 focus:dark:border-violet-400"
@@ -48,7 +48,7 @@ const Services = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
                 {
                     services.map(service => {
-                        return <ServicesCard key={service._id} service={service}></ServicesCard>
+                        return <ServiceCard key={service._id} service={service} />
                     })
                 }
             </div>

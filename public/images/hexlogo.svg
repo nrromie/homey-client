@@ -1,0 +1,33 @@
+<svg width="450" height="500" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="225,0 360,75 360,425 225,500 90,425 90,75" fill="#3FA9F5" />
+	<polygon points="90,75 90,425 0,375 0,125" fill="#2DDCED" />
+	<polygon points="360,75 450,125 450,375 360,425" fill="#0071AF" />
+
+    <line x1="180" y1="25" x2="450" y2="175" stroke="#B8F0FF" />
+	<line x1="135" y1="50" x2="450" y2="225" stroke="#B8F0FF" />
+    <line x1="90" y1="75" x2="450" y2="275" stroke="#B8F0FF" />
+	<line x1="45" y1="100" x2="450" y2="325" stroke="#B8F0FF" />
+    <line x1="0" y1="125" x2="450" y2="375" stroke="#B8F0FF" />
+	<line x1="0" y1="175" x2="405" y2="400" stroke="#B8F0FF" />
+	<line x1="0" y1="225" x2="360" y2="425" stroke="#B8F0FF" />
+	<line x1="0" y1="275" x2="315" y2="450" stroke="#B8F0FF" />
+	<line x1="0" y1="325" x2="275" y2="475" stroke="#B8F0FF" />
+
+    <line x1="0" y1="375" x2="450" y2="125" stroke="#B8F0FF" />
+    <line x1="0" y1="325" x2="405" y2="100" stroke="#B8F0FF" />
+    <line x1="0" y1="275" x2="360" y2="75" stroke="#B8F0FF" />
+    <line x1="0" y1="225" x2="315" y2="50" stroke="#B8F0FF" />
+    <line x1="0" y1="175" x2="275" y2="25" stroke="#B8F0FF" />
+    <line x1="45" y1="400" x2="450" y2="175" stroke="#B8F0FF" />
+    <line x1="90" y1="425" x2="450" y2="225" stroke="#B8F0FF" />
+    <line x1="135" y1="450" x2="450" y2="275" stroke="#B8F0FF" />
+    <line x1="175" y1="475" x2="450" y2="325" stroke="#B8F0FF" />
+
+	<rect x="140" y="160" width="80" height="80" stroke="#0071AF" fill="#FFFFFF" />
+    <rect x="140" y="250" width="80" height="80" stroke="#0071AF" fill="#FFFFFF" />
+    <rect x="230" y="250" width="80" height="80" stroke="#0071AF" fill="#FFFFFF" />
+    <rect x="230" y="160" width="80" height="80" stroke="#0071AF" fill="#FFFFFF" />
+
+	<text x="50%" y="75%" dominant-baseline="middle" text-anchor="middle" fill="#B8F0FF"  stroke="#0071AF" font-size="36" font-family="Arial" font-weight="bold">Homey</text>
+
+</svg>

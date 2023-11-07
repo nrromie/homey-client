@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { AuthContex } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AddService = () => {
 
-    const { userData } = useContext(AuthContex);
+    const { userData } = useContext(AuthContext);
 
     const handleAddService = e => {
         e.preventDefault();

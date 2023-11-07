@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
-import { AuthContex } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Booking = () => {
     const [loading, setLoading] = useState(true);
     const [serviceData, setServiceData] = useState({ service: {}, provider: {} });
     const { _id } = useParams();
-    const { userData } = useContext(AuthContex);
+    const { userData } = useContext(AuthContext);
     console.log(userData)
 
     useEffect(() => {

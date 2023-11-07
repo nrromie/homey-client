@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContex } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Signup = () => {
-  const { createUser } = useContext(AuthContex);
+  const { createUser } = useContext(AuthContext);
 
 
   const handleSubmit = (e) => {

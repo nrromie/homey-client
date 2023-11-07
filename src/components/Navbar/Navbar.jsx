@@ -1,149 +1,94 @@
 import { NavLink, Link } from 'react-router-dom';
-import { CiDark, CiLight } from 'react-icons/ci'
 import { useContext, useEffect, useState } from 'react';
-import { CgMenu } from "react-icons/cg"
-import { RxCross2 } from 'react-icons/rx'
-import { IoIosArrowDropdown } from 'react-icons/io'
-import { AuthContex } from '../../providers/AuthProvider';
-import { FaUserCircle } from 'react-icons/fa'
+import { AuthContext } from '../../providers/AuthProvider';
+import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
+import DashboardBtn from './DashboardBtn/DashboardBtn';
+import UserDropdown from './UserDropDown/UserDropdown';
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+  const [dropdown, setDropdown] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const { user, logOut, userData } = useContext(AuthContex)
-
-  const [dropDown, setDropDown] = useState(false)
-  const [dashboarddrop, setDashboarddrop] = useState(false)
-  const [userDrop, setUserDrop] = useState(false)
-  const [isDark, setIsDark] = useState()
-
-
-  const dropdownStyles = `absolute z-10 right-0 bg-black ${dropDown ? 'top-24' : 'top-[-400px]'}`;
-
-  useEffect(() => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
-      setIsDark(true)
-    } else {
-      document.documentElement.classList.remove('dark')
-      setIsDark(false)
-    }
-  }, [])
-
-
-  const handleTheme = () => {
-    if (!isDark) {
-      document.documentElement.classList.add('dark')
-      setIsDark(true)
-    } else {
-      document.documentElement.classList.remove('dark')
-      setIsDark(false)
-    }
-  }
-
-  const handleSignOut = () => {
-    logOut()
-    setUserDrop(false)
-  }
-
-  const handleNavLinks = ({ isActive }) => {
-    return isActive
-      ? "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
-      : "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-300";
+  const toggleDropdown = () => {
+    setDropdown(!dropdown);
   };
 
-  const dropdownbtn = <>
-    <div className="relative inline-block text-left">
-      <div>
-        <button
-          type="button"
-          className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-300"
-          onClick={() => setDashboarddrop(!dashboarddrop)}
-        >
-          Dashboard <IoIosArrowDropdown />
-        </button>
-      </div>
-      {dashboarddrop && (
-        <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
-          <div className="py-1" role="none">
-            <Link onClick={() => setDropDown(false)} to={"myservices"} className="text-gray-700 block px-4 py-2 text-sm">My Services</Link>
-            <Link onClick={() => setDropDown(false)} to={'addservice'} className="text-gray-700 block px-4 py-2 text-sm">Add a services</Link>
-            <Link onClick={() => setDropDown(false)} to={'/schedules'} className="text-gray-700 block px-4 py-2 text-sm">My schedules</Link>
-          </div>
-        </div>
-      )}
-    </div>
-  </>
+  const handleScroll = () => {
+    const scrolled = window.scrollY > 0;
+    setIsScrolled(scrolled);
+  };
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-  const links = <>
-    <li className="flex"><NavLink to={'/'} className={handleNavLinks}>Home</NavLink></li>
-    <li className="flex"><NavLink to={'/services'} className={handleNavLinks}>Services</NavLink></li>
-    <li className="flex"><div className='flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-300'>{dropdownbtn}</div></li>
-  </>
+  useEffect(() => {
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const storedTheme = localStorage.theme;
+    setIsDark(storedTheme === 'dark' || (!storedTheme && prefersDarkMode));
+    document.documentElement.classList.toggle('dark', storedTheme === 'dark' || (!storedTheme && prefersDarkMode));
+  }, []);
 
+  const handleTheme = () => {
+    const newIsDark = !isDark;
+    document.documentElement.classList.toggle('dark', newIsDark);
+    setIsDark(newIsDark);
+  };
 
-  const userDropdown = (
-    <div className="relative inline-block text-left">
-      <button onClick={() => setUserDrop(!userDrop)}>
-        {userData?.photoURL ? (
-          <img alt="User" className="w-8 h-8 rounded-full ri ri dark:bg-gray-500 ri ri" src={userData.photoURL} />
-        ) : (
-          <FaUserCircle />
-        )}
-      </button>
-      {userDrop && (
-        <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
-          <div className="py-1" role="none">
-            <div className="flex items-center px-4 py-2">
-              {userData?.photoURL && (
-                <img alt="User" className="w-8 h-8 rounded-full mr-2" src={userData.photoURL} />
-              )}
-              <div>
-                <p className="text-gray-800 font-semibold">{userData?.displayName}</p>
-                <p className="text-gray-500">{userData?.email}</p>
-              </div>
-            </div>
-            <button onClick={handleSignOut} className="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">
-              Sign out
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+  const handleNavLinks = ({ isActive }) => {
+    const baseStyle = "px-4 hover:text-[#89C8F7]";
+    return isActive
+      ? `${baseStyle} text-[#2A98D9]`
+      : baseStyle;
+  };
+
+  const links = (
+    <>
+      <li><NavLink to={'/'} className={handleNavLinks}>Home</NavLink></li>
+      <li><NavLink to={'/services'} className={handleNavLinks}>Services</NavLink></li>
+      {user && <li><div className='px-4 hover:text-[#89C8F7]'><DashboardBtn /></div></li>}
+      <li><button className='mr-4 text-2xl' onClick={handleTheme}>
+        {isDark ? <FaSun /> : <FaMoon />}
+      </button></li>
+    </>
   );
 
-
   return (
-    <div className="relative p-4 dark:bg-gray-800 dark:text-gray-100">
-      <div className="container flex justify-between h-16 mx-auto">
-        <Link to={'/'} className="flex items-center p-2">Homey</Link>
-        <ul className="items-stretch hidden space-x-3 lg:flex">
+    <div className={`sticky top-0 z-50 ${isScrolled ? 'bg-white dark:bg-slate-800' : 'bg-transparent'} dark:text-gray-100`}>
+      <div className="relative h-[10vh] w-11/12 mx-auto flex justify-between items-center">
+        <Link to={'/'} className="flex items-center p-2"><img src="/images/hexlogo.svg" alt="logo" className="h-12 mr-2" /> Homey</Link>
+        <ul className="hidden space-x-3 items-center lg:flex">
           {links}
         </ul>
-        <div className="items-center flex-shrink-0 hidden lg:flex">
-          <button className='mr-4 text-2xl' onClick={handleTheme}>
+        <div className='flex items-center gap-2'>
+          <div className='text-2xl'>
             {
-              isDark ? <CiLight /> : <CiDark />
-            }
-          </button>
-          <div >
-            {user ?
-              userDropdown
-              :
-              <Link className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" to={'login'}>Login</Link>
+              user ?
+                <UserDropdown />
+                :
+                <Link className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" to={'login'}>
+                  Login
+                </Link>
             }
           </div>
+          <div>
+            <button onClick={toggleDropdown} className="lg:hidden text-2xl dark:text-gray-100">
+              {dropdown ? <FaTimes /> : <FaBars />}
+            </button>
+            <div className={`absolute top-16 right-0 bg-white dark:bg-slate-900 dark:text-white rounded-md shadow-md overflow-hidden transition-all duration-300 ${dropdown ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0'}`}>
+              <ul className="py-2 px-4">
+                {links}
+              </ul>
+            </div>
+          </div>
         </div>
-        <button onClick={() => setDropDown(!dropDown)} className="p-4 lg:hidden text-2xl w-6 h-6 dark:text-gray-100">
-          {
-            dropDown ? <RxCross2 /> : <CgMenu />
-          }
-        </button>
       </div>
-      <div className={dropdownStyles}>
-        {links}
-      </div>
-    </div >
+    </div>
   );
 };
 

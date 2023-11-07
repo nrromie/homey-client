@@ -8,7 +8,7 @@ const HexagonalImage = ({ imageUrl }) => {
 
     return (
         <div
-            className="top-0 left-0 w-full h-full p-1 bg-slate-300"
+            className="w-full h-full p-1 bg-slate-300"
             style={hexagonClipPath}
         >
             <img

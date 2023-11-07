@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContex } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 import Loading from "../../components/Loading/Loading";
 
 const MySchedules = () => {
-    const { userData, user } = useContext(AuthContex);
+    const { userData, user } = useContext(AuthContext);
     console.log(userData, user)
 
     const [loading, setLoading] = useState(true);

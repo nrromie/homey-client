@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
+import axios from "axios";
 
 const ServiceDetails = () => {
     const [loading, setLoading] = useState(true);
@@ -8,14 +9,23 @@ const ServiceDetails = () => {
     const { _id } = useParams();
 
     useEffect(() => {
-        fetch(`https://homey-server.vercel.app/services/${_id}`)
-            .then(res => res.json())
-            .then(data => {
-                setServiceData(data);
-                setLoading(false);
-            })
-            .catch(error => console.error(error));
-    }, [_id]);
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`https://homey-server.vercel.app/services/${_id}`);
+            setServiceData(response.data);
+            setLoading(false);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+    
+        fetchData();
+    
+        // Cleanup function to cancel the request in case the component is unmounted
+        return () => {
+          // Your cleanup logic, if any
+        };
+      }, [_id]);
 
     if (loading) {
         return <Loading />;

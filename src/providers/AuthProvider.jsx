@@ -5,7 +5,7 @@ import app from '../firebase/firebase.config';
 
 const auth = getAuth(app);
 
-export const AuthContex = createContext(null);
+export const AuthContext = createContext(null);
 
 
 const AuthProvider = ({ children }) => {
@@ -70,9 +70,9 @@ const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContex.Provider value={authInfo}>
+        <AuthContext.Provider value={authInfo}>
             {children}
-        </AuthContex.Provider>
+        </AuthContext.Provider>
     );
 };
 

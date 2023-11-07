@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContex } from '../../providers/AuthProvider';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { signInUser, googleSignIn } = useContext(AuthContex);
+  const { signInUser, googleSignIn } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
