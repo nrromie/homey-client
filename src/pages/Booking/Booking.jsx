@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const Booking = () => {
     const [loading, setLoading] = useState(true);
@@ -62,6 +63,7 @@ const Booking = () => {
 
     return (
         <div className="flex items-center justify-center z-50 min-h-screen bg-gray-100">
+            <Helmet><title>Booking {serviceName}</title></Helmet>
             <div className="bg-white p-8 rounded-lg w-full max-w-md shadow-lg">
                 <h2 className="text-2xl font-bold mb-6 text-center">Booking Details</h2>
                 <form onSubmit={handleBooking}>

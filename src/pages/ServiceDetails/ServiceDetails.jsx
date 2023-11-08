@@ -37,6 +37,7 @@ const ServiceDetails = () => {
 
     return (
         <div className="container mx-auto p-8">
+          <Helmet><title>{serviceName}</title></Helmet>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                     <img src={photo} alt={serviceName} className="w-full h-auto rounded-lg mb-4" />

@@ -3,6 +3,7 @@ import Loading from "../../components/Loading/Loading";
 import { FaSearch } from 'react-icons/fa'
 import ServiceCard from "../../components/ServiceCard/ServiceCard";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const Services = () => {
     const [services, setServices] = useState([]);
@@ -30,6 +31,7 @@ const Services = () => {
 
     return (
         <div>
+            <Helmet><title>Services</title></Helmet>
             <div className="relative flex justify-center items-center w-11/12 mx-auto my-4">
                 <div className="flex relative w-48 sm:w-auto">
                     <input

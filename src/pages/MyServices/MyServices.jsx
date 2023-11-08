@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import ServiceCard from "../../components/ServiceCard/ServiceCard";
+import { Helmet } from "react-helmet";
 
 const MyServices = () => {
     const { userData } = useContext(AuthContext);
@@ -18,6 +19,7 @@ const MyServices = () => {
     if (services.length < 1) {
         return (
             <div className="text-center mt-8">
+                <Helmet><title>My Services</title></Helmet>
                 <p className="text-lg text-gray-600 dark:text-gray-300">
                     You have not added any service yet.
                 </p>

@@ -71,7 +71,7 @@ const Navbar = () => {
               user ?
                 <UserDropdown />
                 :
-                <Link className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" to={'login'}>
+                <Link className="self-center px-8 py-3 font-semibold rounded bg-[#2A98D9] text-white" to={'login'}>
                   Login
                 </Link>
             }

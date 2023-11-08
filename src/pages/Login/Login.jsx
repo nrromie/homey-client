@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
   const location = useLocation();
@@ -53,6 +54,7 @@ const Login = () => {
 
   return (
     <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
+      <Helmet><title>Login</title></Helmet>
       <h1 className="text-2xl font-bold text-center">Login</h1>
       <form onSubmit={handleSubmit}>
         <div className="space-y-1 text-sm">

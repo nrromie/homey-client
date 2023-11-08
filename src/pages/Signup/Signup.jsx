@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const Signup = () => {
   const { createUser } = useContext(AuthContext);
@@ -41,6 +42,7 @@ const Signup = () => {
 
   return (
     <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
+      <Helmet><title>Sign up</title></Helmet>
       <h1 className="text-2xl font-bold text-center">Sign up</h1>
       <form onSubmit={handleSubmit}>
         <div className="space-y-1 text-sm">

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const AddService = () => {
 
@@ -37,6 +38,7 @@ const AddService = () => {
 
     return (
         <section className="p-6 dark:bg-gray-800 dark:text-gray-50">
+            <Helmet><title>Add Service</title></Helmet>
             <form onSubmit={handleAddService} className="container flex-col mx-auto space-y-12 grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
                 <div className="col-span-full lg:col-span-1">
                     <p className="font-medium">Service Information</p>

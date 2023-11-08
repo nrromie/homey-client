@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Loading from "../../components/Loading/Loading";
+import { Helmet } from "react-helmet";
 
 const MySchedules = () => {
     const { userData, user } = useContext(AuthContext);
@@ -29,6 +30,7 @@ const MySchedules = () => {
 
     return (
         <div className="dark:bg-slate-900">
+            <Helmet><title>My Schedule</title></Helmet>
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
                 <h2 className="mb-4 text-2xl font-semibold leadi">My Bookings</h2>
                 {bookings.length < 1 ? (
