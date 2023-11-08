@@ -61,7 +61,7 @@ const Navbar = () => {
   return (
     <div className={`sticky top-0 z-50 ${isScrolled ? 'bg-white dark:bg-slate-800' : 'bg-transparent'} dark:text-gray-100`}>
       <div className="relative h-[10vh] w-11/12 mx-auto flex justify-between items-center">
-        <Link to={'/'} className="flex items-center p-2"><img src="/images/logo.svg" alt="logo" className="h-12 mr-2" /> Homey</Link>
+        <Link to={'/'} className="flex items-center text-xl p-2"><img src="/images/logo.svg" alt="logo" className="h-10 mr-2" /> Homey</Link>
         <ul className="hidden space-x-3 items-center lg:flex">
           {links}
         </ul>
@@ -80,7 +80,7 @@ const Navbar = () => {
             <button onClick={toggleDropdown} className="lg:hidden text-2xl dark:text-gray-100">
               {dropdown ? <FaTimes /> : <FaBars />}
             </button>
-            <div className={`absolute top-16 right-0 bg-white dark:bg-slate-900 dark:text-white rounded-md shadow-md overflow-hidden transition-all duration-300 ${dropdown ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0'}`}>
+            <div className={`absolute top-16 right-0 bg-white dark:bg-slate-900 dark:text-white rounded-md shadow-md transition-all duration-300 ${dropdown ? 'opacity-100 max-h-screen' : 'opacity-0 max-h-0'}`}>
               <ul className="py-2 px-4">
                 {links}
               </ul>

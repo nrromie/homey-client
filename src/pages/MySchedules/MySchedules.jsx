@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Loading from "../../components/Loading/Loading";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 const MySchedules = () => {
     const { user } = useContext(AuthContext);
@@ -55,7 +56,7 @@ const MySchedules = () => {
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
                 <h2 className="mb-4 text-2xl font-semibold leadi">My Bookings</h2>
                 {bookings.length < 1 ? (
-                    <div>There is no data</div>
+                    <div>No booking yet. <Link to={'/services'} className="text-blue-500 dark:text-blue-300 font-semibold hover:underline mt-2">Book Now</Link></div>
                 ) : (<>
                     <div className="overflow-x-auto">
                         <table className="min-w-full text-xs">
@@ -114,7 +115,7 @@ const MySchedules = () => {
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
                 <h2 className="mb-4 text-2xl font-semibold leadi">My Works</h2>
                 {myWork.length < 1 ? (
-                    <div>There is no data</div>
+                    <div>No works yet</div>
                 ) : (<>
                     <div className="overflow-x-auto">
                         <table className="min-w-full text-xs">

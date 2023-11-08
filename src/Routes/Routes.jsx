@@ -12,6 +12,7 @@ import MySchedules from "../pages/MySchedules/MySchedules";
 import Home from "../pages/Home/Home";
 import PrivateRoutes from "./PrivateRoutes";
 import UpdateService from "../pages/UpdateService/UpdateService";
+import ProviderServices from "../pages/ProviderServices/ProviderServices";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: "/schedules",
                 element: <PrivateRoutes><MySchedules /></PrivateRoutes>
+            },
+            {
+                path: "/providerservices/:email",
+                element: <PrivateRoutes><ProviderServices /></PrivateRoutes>
             },
             {
                 path: "/signup",

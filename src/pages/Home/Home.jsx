@@ -1,3 +1,4 @@
+import Aboutus from "../../components/Aboutus/Aboutus";
 import Banner from "../../components/Banner/Banner";
 import FeaturedServices from "../../components/FeaturedServices/FeaturedServices";
 import { Helmet } from "react-helmet";
@@ -7,7 +8,8 @@ const Home = () => {
         <div>
             <Helmet><title>Home</title></Helmet>
             <Banner />
-            <FeaturedServices/>
+            <FeaturedServices />
+            <Aboutus />
         </div>
     );
 };

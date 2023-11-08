@@ -3,10 +3,10 @@ import Loading from '../Loading/Loading';
 import { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import ServiceCard from '../ServiceCard/ServiceCard';
+import FeaturedServiceCard from './FeaturedServiceCard/FeaturedServiceCard';
 
 
-const FeaturedServices = ({ featuredServices }) => {
+const FeaturedServices = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,6 +20,7 @@ const FeaturedServices = ({ featuredServices }) => {
           setLoading(false)
         })
         .catch(error => {
+          fetchData()
           console.error(error)
         })
     }
@@ -33,16 +34,18 @@ const FeaturedServices = ({ featuredServices }) => {
 
 
   return (
-    <section className="p-6 dark:bg-gray-800 dark:text-gray-50">
-      <h2 className="text-2xl font-bold mb-4">Featured Services</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {services.map((service) => (
-          <ServiceCard key={service._id} service={service} />
-        ))}
+    <section className="p-6 dark:bg-slate-900 dark:text-gray-50">
+      <div className='w-11/12 mx-auto'>
+        <h2 className="text-2xl font-bold mb-4">Featured Services</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((service) => (
+            <FeaturedServiceCard key={service._id} service={service} />
+          ))}
+        </div>
+        <Link to="/services" className="mt-6 text-blue-500 hover:underline">
+          See All Services
+        </Link>
       </div>
-      <Link to="/services" className="mt-6 text-blue-500 hover:underline">
-        See All Services
-      </Link>
     </section>
   );
 };
