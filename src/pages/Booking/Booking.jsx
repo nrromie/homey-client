@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Helmet } from "react-helmet";
+import Swal from 'sweetalert2';
 
 const Booking = () => {
     const [loading, setLoading] = useState(true);
     const [serviceData, setServiceData] = useState({ service: {}, provider: {} });
     const { _id } = useParams();
     const { userData } = useContext(AuthContext);
-    console.log(userData)
 
     useEffect(() => {
         fetch(`https://homey-server.vercel.app/services/${_id}`)
@@ -31,12 +31,14 @@ const Booking = () => {
         const form = e.target;
 
         const serviceId = _id;
+        const providerName = displayName;
         const providerEmail = email;
         const userEmail = userData?.email;
+        const userName = userData?.displayName;
         const status = 'pending';
         const date = form.serviceDate.value;
         const specialInstructions = form.specialInstructions.value;
-        const newBooking = { serviceId, providerEmail, userEmail, status, date, specialInstructions, price };
+        const newBooking = { serviceId, serviceName, providerName, serviceArea, providerEmail, userName, userEmail, status, date, specialInstructions, price };
         console.log(newBooking)
 
         //send data
@@ -49,11 +51,16 @@ const Booking = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.insertedId) {
-                    console.log('Inserted Seccessfully')
-                    form.reset();
-                }
-            })
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Booked Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                form.reset();
+            }
+            )
     }
 
     if (loading) {

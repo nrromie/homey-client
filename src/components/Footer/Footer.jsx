@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="lg:w-1/3">
           <Link to={"/"} className="flex justify-center space-x-3 lg:justify-start">
             <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
-              <img src="/images/hexlogo.svg" alt="logo" />
+              <img src="/images/logo.svg" alt="logo" />
             </div>
             <span className="self-center text-2xl font-semibold">Homey</span>
           </Link>

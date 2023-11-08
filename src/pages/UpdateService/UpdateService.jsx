@@ -1,52 +1,81 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Helmet } from "react-helmet";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 
-const AddService = () => {
-
+const UpdateService = () => {
     const { userData } = useContext(AuthContext);
+    const { _id } = useParams()
 
-    const handleAddService = e => {
+    const [serviceData, setServiceData] = useState();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch(`https://homey-server.vercel.app/services/${_id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data) {
+                    setServiceData(data);
+                    setLoading(false)
+                } else {
+                    console.error('Service not found');
+                }
+            })
+            .catch((error) => console.error('Error fetching service:', error));
+    }, [_id]);
+
+
+    const handleUpdateService = (e) => {
         e.preventDefault();
         const form = e.target;
 
-        const photo = form.photo.value;
-        const serviceName = form.servicename.value;
-        const email = form.email.value;
-        const serviceArea = form.servicearea.value;
-        const price = parseFloat(form.price.value);
-        const description = form.description.value;
+        // Extract updated service data from the form
+        const updatedService = {
+            photo: form.photo.value,
+            serviceName: form.servicename.value,
+            serviceArea: form.servicearea.value,
+            price: parseFloat(form.price.value),
+            description: form.description.value,
+        };
 
-        const newService = { email, photo, serviceName, serviceArea, price, description };
-
-        //send data
-        fetch('https://homey-server.vercel.app/addservice', {
-            method: 'POST',
+        // Send updated data to the server
+        fetch(`https://homey-server.vercel.app/updateservice/${_id}`, {
+            method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
             },
-            body: JSON.stringify(newService)
+            body: JSON.stringify(updatedService),
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId) {
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.updatedCount) {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Added Successfully",
+                        title: "Updated Successfully",
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    form.reset();
+                } else {
+                    console.error('Error updating service');
                 }
             })
+            .catch((error) => console.error('Network error or other exception:', error));
+    };
+
+    if (loading) {
+        return <Loading />
     }
+
+    const { service } = serviceData;
+    const { email, photo, serviceName, serviceArea, price, description } = service;
 
     return (
         <section className="p-6 dark:bg-gray-800 dark:text-gray-50">
-            <Helmet><title>Add Service</title></Helmet>
-            <form onSubmit={handleAddService} className="container flex-col mx-auto space-y-12 grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
+            <Helmet><title>Update Service</title></Helmet>
+            <form onSubmit={handleUpdateService} className="container flex-col mx-auto space-y-12 grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
                 <div className="col-span-full lg:col-span-1">
                     <p className="font-medium">Service Information</p>
                     <p className="text-xs">
@@ -59,7 +88,7 @@ const AddService = () => {
                         <input
                             type="text"
                             name="photo"
-                            placeholder="Enter Photo URL"
+                            defaultValue={photo}
                             className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                             required
                         />
@@ -69,7 +98,7 @@ const AddService = () => {
                         <input
                             type="text"
                             name="servicename"
-                            placeholder="Enter Service Name"
+                            defaultValue={serviceName}
                             className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                             required
                         />
@@ -101,7 +130,7 @@ const AddService = () => {
                         <input
                             type="text"
                             name="price"
-                            placeholder="Enter Price"
+                            defaultValue={price}
                             className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                             required
                         />
@@ -111,7 +140,7 @@ const AddService = () => {
                         <input
                             type="text"
                             name="servicearea"
-                            placeholder="Enter Service Area"
+                            defaultValue={serviceArea}
                             className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                             required
                         />
@@ -121,17 +150,17 @@ const AddService = () => {
                         <textarea
                             name="description"
                             rows="3"
-                            placeholder="Enter Description (max 100 characters)"
+                            defaultValue={description}
                             className="w-full h-20 rounded-md resize-none focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                             maxLength="100"
                             required
                         />
                     </div>
-                    <button className="col-span-full self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" type="submit">Add</button>
+                    <button type="submit" className="col-span-full self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Update</button>
                 </div>
             </form>
         </section>
     );
 };
 
-export default AddService;
+export default UpdateService;

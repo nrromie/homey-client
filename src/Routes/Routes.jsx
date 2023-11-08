@@ -11,6 +11,7 @@ import Booking from "../pages/Booking/Booking";
 import MySchedules from "../pages/MySchedules/MySchedules";
 import Home from "../pages/Home/Home";
 import PrivateRoutes from "./PrivateRoutes";
+import UpdateService from "../pages/UpdateService/UpdateService";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: "/addservice",
                 element: <PrivateRoutes><AddService /></PrivateRoutes>
+            },
+            {
+                path: "/update/:_id",
+                element: <PrivateRoutes><UpdateService></UpdateService></PrivateRoutes>
             },
             {
                 path: "/services",

@@ -3,6 +3,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 const Login = () => {
   const location = useLocation();

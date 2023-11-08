@@ -61,7 +61,7 @@ const Navbar = () => {
   return (
     <div className={`sticky top-0 z-50 ${isScrolled ? 'bg-white dark:bg-slate-800' : 'bg-transparent'} dark:text-gray-100`}>
       <div className="relative h-[10vh] w-11/12 mx-auto flex justify-between items-center">
-        <Link to={'/'} className="flex items-center p-2"><img src="/images/hexlogo.svg" alt="logo" className="h-12 mr-2" /> Homey</Link>
+        <Link to={'/'} className="flex items-center p-2"><img src="/images/logo.svg" alt="logo" className="h-12 mr-2" /> Homey</Link>
         <ul className="hidden space-x-3 items-center lg:flex">
           {links}
         </ul>

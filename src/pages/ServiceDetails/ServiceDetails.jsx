@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const ServiceDetails = () => {
     const [loading, setLoading] = useState(true);
@@ -36,7 +37,7 @@ const ServiceDetails = () => {
     const { displayName, photoURL } = provider;
 
     return (
-        <div className="container mx-auto p-8">
+        <div className="container mx-auto p-8 dark:text-white">
           <Helmet><title>{serviceName}</title></Helmet>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
@@ -44,13 +45,13 @@ const ServiceDetails = () => {
                 </div>
                 <div className="flex flex-col justify-center">
                     <h2 className="text-3xl font-bold mb-4">{serviceName}</h2>
-                    <p className="text-gray-600 mb-6">{description}</p>
+                    <p className="mb-6">{description}</p>
                     <div className="flex items-center mb-4">
                         <img src={photoURL} alt={displayName} className="w-10 h-10 rounded-full mr-4" />
-                        <h3 className="text-gray-800 text-lg font-semibold">{displayName}</h3>
+                        <h3 className="text-lg font-semibold">{displayName}</h3>
                     </div>
-                    <p className="text-gray-800 font-semibold mb-4">Service Provider: {email}</p>
-                    <p className="text-gray-800 font-semibold mb-4">Service Area: {serviceArea}</p>
+                    <p className="text-gray-800 dark:text-white font-semibold mb-4">Service Provider: {email}</p>
+                    <p className="text-gray-800 dark:text-white font-semibold mb-4">Service Area: {serviceArea}</p>
                     <p className="text-violet-600 font-semibold text-2xl mb-4">{price}</p>
                     <Link to={`/booking/${_id}`} className="bg-violet-600 text-white px-8 py-3 rounded hover:bg-violet-700 transition duration-300">
                         Book Now
